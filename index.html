@@ -625,10 +625,12 @@
             
             <div class="gallery-container">
                 <button class="gallery-btn prev" onclick="prevSlide()">❮</button>
-                <img src="/Users/martinndegwa/Desktop/mukami/01.jpeg" class="gallery-slide active" alt="Mukami 1">
-                <img src="/Users/martinndegwa/Desktop/mukami/02.jpeg" class="gallery-slide" alt="Mukami 2">
-                <img src="/Users/martinndegwa/Desktop/mukami/03.jpeg" class="gallery-slide" alt="Mukami 3">
+                <img src="./public/images/01.jpeg" class="gallery-slide active" alt="Mukami 1">
+                <img src="./public/images/02.jpeg" class="gallery-slide" alt="Mukami 2">
+                <img src="./public/images/03.jpeg" class="gallery-slide" alt="Mukami 3">
                 <button class="gallery-btn next" onclick="nextSlide()">❯</button>
+
+                
                 <div class="gallery-nav">
                     <div class="gallery-dot active"></div>
                     <div class="gallery-dot"></div>
@@ -637,7 +639,7 @@
             </div>
             
             <div class="personal-message">
-                Hey beautiful! 💖
+                Hey Mukami! 💖
                 
                 I created this magical garden just for you. Each bloom here 
                 represents your amazing spirit and the joy you bring to everyone's life.
@@ -703,7 +705,7 @@
                     name: 'Love Seed 💖',
                     messages: [
                         "Your smile lights up everyone's day, Mukami! 💖",
-                        "You make the world more beautiful! 💝",
+                        "You make the world more Mukami! 💝",
                         "Your kindness touches so many hearts! 💗",
                         "You're amazing just as you are! 💓",
                         "Your spirit is truly inspiring! 💖",
@@ -732,7 +734,7 @@
                 dream: {
                     name: 'Dream Seed 🌙',
                     messages: [
-                        "Keep chasing your dreams, beautiful! 🌙",
+                        "Keep chasing your dreams, Mukami! 🌙",
                         "Your potential is truly limitless! ⭐",
                         "Your future is incredibly bright! 💫",
                         "Keep reaching for the stars! 🌠",
@@ -802,7 +804,7 @@
             showSlide(currentSlide);
             resetGalleryInterval();
         }
-
+//
         function nextSlide() {
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
