@@ -51,6 +51,7 @@ export default function App() {
       'Love sealed as Marto holds you close, forever.',
       ...prev
     ].slice(0, 12));
+
   };
 
   return (
@@ -95,6 +96,7 @@ export default function App() {
             ) : (
               <span>Marto whispers: "I&apos;m here for you, always."</span>
             )}
+
           </div>
         </div>
       </div>
@@ -116,6 +118,7 @@ export default function App() {
             cherished beyond measure.
           </p>
         </article>
+
       </section>
 
       <section className="memory-grid">
@@ -143,6 +146,7 @@ export default function App() {
           <p>Two souls, one orbit. Nothing can dim what we share.</p>
         </div>
       )}
+
     </div>
   );
 }

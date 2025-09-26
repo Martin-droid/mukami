@@ -33,6 +33,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
     reunitedRef.current = reunited;
   }, [reunited]);
 
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -272,6 +273,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
       });
     };
 
+
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -279,6 +281,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
       gradient.addColorStop(0, '#050519');
       gradient.addColorStop(0.5, '#110529');
       gradient.addColorStop(1, '#1b0733');
+
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -320,6 +323,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
           ctx.fillRect(laser.x - 3, laser.y - 28, 6, 32);
         }
         ctx.restore();
+
       });
 
       particlesRef.current.forEach((particle) => {
@@ -409,6 +413,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
         }
       }
 
+
       animationRef.current = requestAnimationFrame(render);
     };
 
@@ -465,6 +470,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
 
+
     animationRef.current = requestAnimationFrame(render);
 
     return () => {
@@ -479,6 +485,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
     };
   }, [onMeteorDestroyed, onReunited]);
 
+
   return (
     <div className="galaxy-canvas-wrapper">
       <canvas ref={canvasRef} className="galaxy-canvas" />
@@ -487,6 +494,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
           Steer the starship with touch or mouse. Hold your touch, click, or press space to fire love-beams through the
           meteors.
         </p>
+
       </div>
     </div>
   );
