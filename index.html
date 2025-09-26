@@ -1,1107 +1,914 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Mukami, With Love 💝</title>
+    <title>Galactic Love for Mukami ✨</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sacramento&display=swap');
+
+        :root {
+            --pink: #ff6fb7;
+            --violet: #6a5acd;
+            --deep-space: #0b0320;
+            --starlight: rgba(255, 255, 255, 0.85);
+            --nebula: linear-gradient(135deg, rgba(106, 90, 205, 0.9), rgba(255, 111, 183, 0.8));
+            --glow: 0 10px 35px rgba(255, 111, 183, 0.35);
+            --glass: rgba(255, 255, 255, 0.08);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        :root {
-            --primary: #ff69b4;
-            --primary-dark: #ff1493;
-            --secondary: #8ec5fc;
-            --accent: #e0c3fc;
-            --success: #4CAF50;
-            --text: #2c3e50;
-            --light: #ffffff;
-            --shadow: rgba(0,0,0,0.1);
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes floatIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes shine {
-            0% { background-position: -100% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        @keyframes slideDown {
-            0% { transform: translate(-50%, -100%); opacity: 0; }
-            10% { transform: translate(-50%, 20px); opacity: 1; }
-            90% { transform: translate(-50%, 20px); opacity: 1; }
-            100% { transform: translate(-50%, -100%); opacity: 0; }
+        html, body {
+            height: 100%;
+            overflow: hidden;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(-45deg, #ff69b4, #da70d6, #87ceeb, #e0c3fc);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            color: var(--text);
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--starlight);
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.12), transparent 40%),
+                        radial-gradient(circle at 80% 10%, rgba(255, 111, 183, 0.2), transparent 45%),
+                        radial-gradient(circle at 50% 80%, rgba(106, 90, 205, 0.25), transparent 50%),
+                        #040014;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        #welcomeModal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(8px);
-            transition: opacity 0.5s ease;
-        }
-
-        .welcome-content {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 25px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            animation: floatIn 1s ease-out;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        /* Fixed gallery styles */
-        .gallery-container {
-            width: 100%;
-            height: 300px; /* Increased height */
+        .galaxy-wrapper {
             position: relative;
-            margin: 1rem auto;
-            border-radius: 15px;
-            overflow: hidden;
-            background: #f8f9fa;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .gallery-slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            object-fit: contain; /* Changed to contain */
-            object-position: center;
-            padding: 0.5rem;
-            background: #f8f9fa;
-            border-radius: 15px;
-        }
-
-        .gallery-slide.active {
-            opacity: 1;
-        }
-
-        .gallery-nav {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.8rem;
-            z-index: 2;
-            background: rgba(0,0,0,0.4);
-            padding: 0.6rem 1rem;
-            border-radius: 20px;
-        }
-
-        .gallery-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-dot.active {
-            background: white;
-            transform: scale(1.2);
-        }
-
-        .gallery-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.9);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            z-index: 2;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--primary-dark);
-        }
-
-        .gallery-btn:hover {
-            background: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .gallery-btn.prev { left: 15px; }
-        .gallery-btn.next { right: 15px; }
-
-
-        .personal-message {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1.5rem 0;
-            font-size: 1rem;
-            line-height: 1.6;
-            box-shadow: 0 10px 20px rgba(255,105,180,0.2);
-            position: relative;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
         }
 
-        .personal-message::before {
+        canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star-sky {
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .star-sky::before,
+        .star-sky::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            animation: shine 3s infinite;
+            inset: -50%;
+            background-repeat: repeat;
+            background-image: radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.8) 0, transparent 45%),
+                              radial-gradient(1px 1px at 120px 80px, rgba(255, 192, 203, 0.8) 0, transparent 55%),
+                              radial-gradient(1.5px 1.5px at 200px 150px, rgba(135, 206, 250, 0.8) 0, transparent 50%);
+            animation: drift 120s linear infinite;
+            opacity: 0.65;
         }
 
-        /* Input styling */
-        .name-input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border-radius: 25px;
-            border: 2px solid var(--primary);
-            margin: 1.5rem 0;
-            font-size: 1rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            outline: none;
-            background: rgba(255,255,255,0.9);
+        .star-sky::after {
+            animation-duration: 200s;
+            opacity: 0.4;
+            transform: scale(1.5);
         }
 
-        .name-input:focus {
-            border-color: var(--primary-dark);
-            box-shadow: 0 0 15px rgba(255,105,180,0.3);
-            transform: translateY(-2px);
+        @keyframes drift {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(30%, 40%, 0); }
         }
 
-        /* Game container */
-        .game-container {
-            width: 95%;
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: rgba(255,255,255,0.95);
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            display: none;
-            animation: floatIn 1s ease-out;
+        .shooting-stars {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
+        .shooting-star {
+            position: absolute;
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 111, 183, 0.1) 100%);
+            border-radius: 999px;
+            filter: blur(0.5px);
+            opacity: 0;
+            animation: shooting 6s linear infinite;
+        }
+
+        .shooting-star:nth-child(2) { animation-delay: 1.2s; }
+        .shooting-star:nth-child(3) { animation-delay: 3.8s; }
+        .shooting-star:nth-child(4) { animation-delay: 5.4s; }
+
+        @keyframes shooting {
+            0% { opacity: 0; transform: translate3d(0, -40%, 0) rotate(30deg); }
+            10% { opacity: 1; }
+            60% { opacity: 0.7; transform: translate3d(150%, 80%, 0) rotate(30deg); }
+            100% { opacity: 0; transform: translate3d(200%, 120%, 0) rotate(30deg); }
+        }
+
+        .ui-layer {
             position: relative;
-        }
-
-        .header h1 {
-            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* Stats section */
-        .stats {
+            z-index: 3;
+            width: min(1080px, 92vw);
+            margin: 0 auto;
+            padding: clamp(1.5rem, 2vw, 2rem);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.2rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(1.5rem, 2vw, 2.5rem);
         }
 
-        .stat-card {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 15px rgba(255,105,180,0.2);
+        header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(11, 3, 32, 0.6), rgba(255, 111, 183, 0.12));
+            border-radius: 26px;
+            padding: clamp(2rem, 4vw, 3rem);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glow);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(255,105,180,0.3);
+        header::before {
+            content: '';
+            position: absolute;
+            inset: -30% -20% 40% 45%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 60%);
+            opacity: 0.4;
+            animation: pulse 12s ease-in-out infinite;
         }
 
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-top: 0.8rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.25; }
+            50% { transform: scale(1.2); opacity: 0.5; }
         }
 
-        /* Enhanced scoreboard */
-        .scoreboard-container {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            max-height: 250px; /* Increased height */
-            overflow-y: auto;
-            box-shadow: inset 0 2px 8px var(--shadow);
+        h1 {
+            font-family: 'Sacramento', cursive;
+            font-size: clamp(3.2rem, 8vw, 5.2rem);
+            color: var(--starlight);
+            text-shadow: 0 20px 45px rgba(255, 111, 183, 0.45);
+            letter-spacing: 2px;
         }
 
-        .scoreboard-container::-webkit-scrollbar {
-            width: 8px;
+        header p {
+            font-size: clamp(1.1rem, 2.1vw, 1.35rem);
+            margin-top: 1rem;
+            max-width: 660px;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.75);
         }
 
-        .scoreboard-container::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
+        .signature {
+            margin-top: 2rem;
+            font-family: 'Sacramento', cursive;
+            font-size: clamp(2.2rem, 5vw, 3.3rem);
+            color: var(--pink);
         }
 
-        .scoreboard-container::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
+        .glass-card {
+            background: rgba(11, 3, 32, 0.55);
+            border-radius: 24px;
+            padding: clamp(1.4rem, 2vw, 2rem);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            box-shadow: var(--glow);
+            position: relative;
+            overflow: hidden;
         }
 
-        .scoreboard-container h3 {
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-            text-align: center;
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -30%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(circle, rgba(255, 111, 183, 0.35) 0%, transparent 60%);
+            filter: blur(10px);
+        }
+
+        .glass-card h2 {
             font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.76);
+        }
+
+        .score-grid {
+            display: grid;
+            gap: 1rem;
         }
 
         .score-item {
             display: flex;
             justify-content: space-between;
-            padding: 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            font-size: 1rem;
-            transition: all 0.3s ease;
             align-items: center;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+            font-size: 1.05rem;
         }
 
-        .score-item:hover {
-            background: rgba(255,105,180,0.1);
-            transform: translateX(5px);
+        .score-item span {
+            font-weight: 600;
+            color: var(--pink);
         }
 
-        .score-info {
+        .mission-card {
             display: flex;
             flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mission-step {
+            display: flex;
+            gap: 0.9rem;
             align-items: flex-start;
         }
 
-        .score-name {
-            font-weight: bold;
-            color: var(--primary-dark);
-        }
-
-        .score-details {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 0.2rem;
-        }
-
-        .score-points {
-            font-weight: bold;
-            color: var(--primary-dark);
-            font-size: 1.1rem;
-        }
-
-        /* Garden styles */
-        #seedInventory {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: rgba(255,255,255,0.8);
-            border-radius: 20px;
-            box-shadow: inset 0 2px 10px var(--shadow);
-        }
-
-        .seed-btn {
-            padding: 0.8rem 1.8rem;
-            border-radius: 25px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255,105,180,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .seed-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
-
-        .seed-btn:hover::after {
-            left: 100%;
-        }
-
-        .seed-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(255,105,180,0.4);
-        }
-
-
-        #garden {
+        .mission-step i {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 20px;
-            box-shadow: inset 0 2px 10px var(--shadow);
-        }
-
-        .garden-plot {
-            aspect-ratio: 1;
-            background: linear-gradient(145deg, #deb887, #cd9b6a);
-            border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 2.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 16px var(--shadow);
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .garden-plot:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 24px var(--shadow);
-        }
-
-        .garden-plot.growing {
-            background: linear-gradient(145deg, var(--success), #45a049);
-        }
-
-        .garden-plot.growing::before {
-            content: '🌱';
-            position: absolute;
-            font-size: 2rem;
-            animation: growPlant 1.5s ease-in-out;
-        }
-
-        @keyframes growPlant {
-            0% { transform: scale(0.5) translateY(20px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
-        }
-
-        .flower {
-            font-size: 2.8rem;
-            animation: bloom 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes bloom {
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
-            50% { transform: scale(1.2) rotate(-90deg); }
-            100% { transform: scale(1) rotate(0); opacity: 1; }
-        }
-
-        .sparkle {
-            position: absolute;
-            font-size: 1.2rem;
-            animation: sparkle 2s infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.5; }
-        }
-
-        .butterfly {
-            position: fixed;
-            font-size: 1.5rem;
-            pointer-events: none;
-            z-index: 1000;
-            animation: butterFly 15s linear;
-        }
-
-        @keyframes butterFly {
-            0% { transform: translate(-10vw, 110vh) rotate(0deg); }
-            50% { transform: translate(50vw, 50vh) rotate(180deg); }
-            100% { transform: translate(110vw, -10vh) rotate(360deg); }
-        }
-
-        .message-popup {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--primary-dark), #d4138a);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: slideDown 3s ease-in-out forwards;
-            z-index: 1000;
-            text-align: center;
-            min-width: 280px;
-            max-width: 90%;
-            font-size: 1rem;
-        }
-
-        .restart-btn {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 50px;
-            height: 50px;
+            place-items: center;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1.4rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: all 0.4s ease;
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--pink);
+            font-style: normal;
         }
 
-        .restart-btn:hover {
-            transform: rotate(180deg);
-            box-shadow: 0 8px 20px rgba(255,105,180,0.4);
+        .mission-step p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.72);
         }
 
-        /* Progress bar */
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 4px;
-            margin: 1.5rem 0;
+        .constellation-badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 1.1rem;
+            border-radius: 20px;
+            position: relative;
             overflow: hidden;
+            transition: transform 0.45s ease;
         }
 
-        .progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-            width: 0%;
-            transition: width 0.3s ease;
+        .badge:hover {
+            transform: translateY(-6px) scale(1.03);
         }
 
-        /* Responsive design */
+        .badge strong {
+            font-size: 1.1rem;
+            color: var(--pink);
+        }
+
+        .badge p {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .love-log {
+            display: grid;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+            max-height: 240px;
+            overflow-y: auto;
+            padding-right: 0.4rem;
+        }
+
+        .love-log::-webkit-scrollbar { width: 6px; }
+        .love-log::-webkit-scrollbar-thumb {
+            background: rgba(255, 111, 183, 0.4);
+            border-radius: 99px;
+        }
+
+        .log-entry {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.85rem 1rem;
+            border-radius: 14px;
+            border-left: 3px solid rgba(255, 111, 183, 0.5);
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .big-love {
+            grid-column: 1 / -1;
+            display: grid;
+            gap: 1rem;
+            text-align: center;
+            padding: clamp(2rem, 3vw, 2.5rem);
+        }
+
+        .big-love h2 {
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .big-love p {
+            font-size: clamp(1.1rem, 2.3vw, 1.35rem);
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .start-overlay {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: rgba(4, 0, 20, 0.88);
+            z-index: 6;
+            transition: opacity 0.6s ease;
+        }
+
+        .start-card {
+            text-align: center;
+            max-width: 420px;
+            padding: 2.5rem;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: var(--glow);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(18px);
+            animation: floatIn 1s ease;
+        }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .start-card h3 {
+            font-family: 'Sacramento', cursive;
+            font-size: 3.1rem;
+            color: var(--pink);
+            margin-bottom: 1rem;
+        }
+
+        .start-card p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .start-button {
+            margin-top: 2rem;
+            padding: 0.9rem 2.8rem;
+            border-radius: 999px;
+            border: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ff9ad6, #6a5acd);
+            color: #0b0320;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 18px 35px rgba(255, 111, 183, 0.45);
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 25px 45px rgba(255, 111, 183, 0.55);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--glow);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            max-width: 280px;
+            z-index: 7;
+            line-height: 1.5;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating-word {
+            position: absolute;
+            font-family: 'Sacramento', cursive;
+            font-size: clamp(1.4rem, 4vw, 2.8rem);
+            color: rgba(255, 255, 255, 0.75);
+            pointer-events: none;
+            animation: floatUp 2.8s ease-out forwards;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes floatUp {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(-50%, -120%) scale(1.2); opacity: 0; }
+        }
+
         @media (max-width: 768px) {
-            .welcome-content {
-                padding: 1.5rem;
-                width: 95%;
-                max-width: 350px;
-            }
-
-            .gallery-container {
-                height: 250px;
-            }
-
-            .personal-message {
-                padding: 1.2rem;
-                font-size: 0.95rem;
-            }
-
-            .gallery-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-
-            .game-container {
-                padding: 1.2rem;
-            }
-
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            #garden {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
-            }
-
-            .garden-plot {
-                font-size: 1.8rem;
-            }
-
-            .flower {
-                font-size: 2.2rem;
-            }
-
-            .seed-btn {
-                padding: 0.7rem 1.4rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .gallery-container {
-                height: 200px;
-            }
-
-            .garden-plot {
-                font-size: 1.6rem;
-            }
-
-            .flower {
-                font-size: 2rem;
-            }
-
-            .message-popup {
-                font-size: 0.9rem;
-                padding: 0.8rem 1.5rem;
-                min-width: 250px;
-            }
+            body { overflow-y: auto; overflow-x: hidden; }
+            html, body { height: auto; min-height: 100%; }
+            .galaxy-wrapper { height: auto; min-height: 100vh; padding-bottom: 3rem; }
+            canvas { position: fixed; }
+            .toast { bottom: 1.2rem; right: 1.2rem; left: 1.2rem; max-width: none; }
         }
     </style>
 </head>
 <body>
-    <div id="welcomeModal">
-        <div class="welcome-content">
-            <h2>✨ Dear Mukami ✨</h2>
-            
-            <div class="gallery-container">
-                <button class="gallery-btn prev" onclick="prevSlide()">❮</button>
-                <img src="./public/images/01.jpeg" class="gallery-slide active" alt="Mukami 1">
-                <img src="./public/images/02.jpeg" class="gallery-slide" alt="Mukami 2">
-                <img src="./public/images/03.jpeg" class="gallery-slide" alt="Mukami 3">
-                <button class="gallery-btn next" onclick="nextSlide()">❯</button>
+    <div class="galaxy-wrapper">
+        <div class="star-sky"></div>
+        <div class="shooting-stars">
+            <span class="shooting-star" style="top: 10%; left: 15%;"></span>
+            <span class="shooting-star" style="top: 25%; left: 70%;"></span>
+            <span class="shooting-star" style="top: 55%; left: 30%;"></span>
+            <span class="shooting-star" style="top: 75%; left: 80%;"></span>
+        </div>
+        <canvas id="galaxyCanvas"></canvas>
 
-                
-                <div class="gallery-nav">
-                    <div class="gallery-dot active"></div>
-                    <div class="gallery-dot"></div>
-                    <div class="gallery-dot"></div>
+        <div class="ui-layer">
+            <header>
+                <h1>My Galaxy for Mukami</h1>
+                <p>
+                    In this little corner of the universe I gathered every spark, every constellation, every comet tail of joy just for you.
+                    Each star you catch is a memory, every glow is a promise: that loving you feels like flying through galaxies hand in hand.
+                </p>
+                <p class="signature">Forever orbiting you, 💫</p>
+            </header>
+
+            <section class="glass-card score-card">
+                <h2>Mission Metrics</h2>
+                <div class="score-grid">
+                    <div class="score-item">Love Points <span id="lovePoints">0</span></div>
+                    <div class="score-item">Streak <span id="streak">0</span></div>
+                    <div class="score-item">Missed Stars <span id="misses">0</span></div>
+                    <div class="score-item">Brightest Run <span id="bestStreak">0</span></div>
                 </div>
-            </div>
-            
-            <div class="personal-message">
-                Hey Mukami! 💖
-                
-                I created this magical garden just for you. Each bloom here 
-                represents your amazing spirit and the joy you bring to everyone's life.
+            </section>
 
-                Let's make it bloom! 🌸
-                - Marto ✨
-            </div>
-            
-            <input type="text" 
-                   id="playerName" 
-                   placeholder="Enter your name to begin..." 
-                   class="name-input"
-                   maxlength="20"
-                   autocomplete="off">
-            <div class="progress-bar">
-                <div class="progress" id="loadingProgress"></div>
-            </div>
-            <button class="seed-btn" onclick="beginGame()">Start Your Garden 🌱</button>
+            <section class="glass-card mission-card">
+                <h2>How to Play</h2>
+                <div class="mission-step">
+                    <i>1</i>
+                    <p>Move your heart-ship with your mouse or touch. Follow the glow and let it guide you through the night.</p>
+                </div>
+                <div class="mission-step">
+                    <i>2</i>
+                    <p>Collect radiant love-stars and vibrant memories. Each one is a reason you make the universe brighter.</p>
+                </div>
+                <div class="mission-step">
+                    <i>3</i>
+                    <p>Keep your streak alive to unlock cosmic love notes meant only for you, my radiant Mukami.</p>
+                </div>
+            </section>
+
+            <section class="glass-card">
+                <h2>Constellations of Compliments</h2>
+                <div class="constellation-badges">
+                    <div class="badge">
+                        <strong>Supernova Smile</strong>
+                        <p>That smile? A burst of warmth that bends time, melts worries, and lights every orbit I spin in.</p>
+                    </div>
+                    <div class="badge">
+                        <strong>Gravity of Grace</strong>
+                        <p>Your kindness keeps me grounded even when life spins wildly. You are my calm in cosmic storms.</p>
+                    </div>
+                    <div class="badge">
+                        <strong>Starlit Laughter</strong>
+                        <p>It rings like chimes under moonlight—suddenly the universe feels playful and new.</p>
+                    </div>
+                    <div class="badge">
+                        <strong>Heart Nebula</strong>
+                        <p>Inside you blooms a whole galaxy of dreams. Thank you for sharing your colors with me.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="glass-card">
+                <h2>Love Log</h2>
+                <div class="love-log" id="loveLog"></div>
+            </section>
+
+            <section class="glass-card big-love">
+                <h2>YOU + ME = CONSTELLATION</h2>
+                <p>
+                    Every score you make draws a new star line between us. Eventually, they sketch a story of us exploring life’s galaxy,
+                    choosing wonder, choosing softness, choosing each other—again and again. So stay, play, and know every shimmer is me whispering: I love you, Mukami.
+                </p>
+            </section>
         </div>
+
+        <div class="start-overlay" id="startOverlay">
+            <div class="start-card">
+                <h3>Hi Sweetheart 🌌</h3>
+                <p>
+                    Ready to drift through the galaxy I made just for you? Catch the glowing hearts, chase the stardust, and feel how adored you are with every light.
+                    Tap the button below to launch our love mission.
+                </p>
+                <button class="start-button" id="startButton">Start Our Journey</button>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"></div>
     </div>
-    ```html
-    <div class="game-container">
-        <div class="header">
-            <h1>Mukami's Magical Garden ✨</h1>
-            <p>Plant seeds of joy and watch your garden bloom with love!</p>
-        </div>
-
-        <div class="stats">
-            <div class="stat-card">
-                <h3>Flowers Bloomed</h3>
-                <div class="stat-value" id="flowerCount">0 🌺</div>
-            </div>
-            <div class="stat-card">
-                <h3>Joy Points</h3>
-                <div class="stat-value" id="joyPoints">0 ✨</div>
-            </div>
-            <div class="stat-card">
-                <h3>Garden Level</h3>
-                <div class="stat-value" id="gardenLevel">Seed 🌱</div>
-            </div>
-            <div class="stat-card">
-                <h3>Love Score</h3>
-                <div class="stat-value" id="loveScore">0 💝</div>
-            </div>
-        </div>
-
-        <div id="seedInventory"></div>
-        <div id="garden"></div>
-
-        <div class="scoreboard-container">
-            <h3>Garden Hall of Fame 🏆</h3>
-            <div id="scoreboard"></div>
-        </div>
-    </div>
-
-    <button class="restart-btn" onclick="restartGame()">🔄</button>
 
     <script>
-        // Game Configuration
-        const GAME_CONFIG = {
-            seeds: {
-                love: {
-                    name: 'Love Seed 💖',
-                    messages: [
-                        "Your smile lights up everyone's day, Mukami! 💖",
-                        "You make the world more Mukami! 💝",
-                        "Your kindness touches so many hearts! 💗",
-                        "You're amazing just as you are! 💓",
-                        "Your spirit is truly inspiring! 💖",
-                        "Your heart is pure gold! 💝",
-                        "You spread joy everywhere you go! 💗",
-                        "You make life better just by being you! 💝",
-                        "Your love makes everything brighter! 💖",
-                        "You're a blessing to everyone around you! 💗"
-                    ]
-                },
-                joy: {
-                    name: 'Joy Seed 🌟',
-                    messages: [
-                        "Your laughter is pure magic! ✨",
-                        "You bring happiness wherever you go! 🌟",
-                        "Your energy lights up every room! 🎉",
-                        "You make every moment special! 🌈",
-                        "Keep shining your beautiful light! ✨",
-                        "Your joy is a precious gift! 🌟",
-                        "You brighten the darkest days! 🌈",
-                        "Your spirit is absolutely radiant! ✨",
-                        "You're a ray of pure sunshine! 🌟",
-                        "Your happiness is truly contagious! 🎉"
-                    ]
-                },
-                dream: {
-                    name: 'Dream Seed 🌙',
-                    messages: [
-                        "Keep chasing your dreams, Mukami! 🌙",
-                        "Your potential is truly limitless! ⭐",
-                        "Your future is incredibly bright! 💫",
-                        "Keep reaching for the stars! 🌠",
-                        "You're destined for amazing things! ⭐",
-                        "Dream big and bold, always! 🌙",
-                        "Nothing can stop your shine! 💫",
-                        "Believe in your magic! 🌠",
-                        "Your dreams will take you so far! ⭐",
-                        "The world is yours to conquer! 🌙"
-                    ]
-                },
-                magic: {
-                    name: 'Magic Seed ✨',
-                    messages: [
-                        "You're pure magic, Mukami! ✨",
-                        "Your presence is truly enchanting! 🌟",
-                        "You create magic everywhere! 💫",
-                        "Keep being wonderfully you! 💖",
-                        "You're extraordinary in every way! ✨",
-                        "Your soul sparkles so bright! 🌟",
-                        "You're magical just as you are! 💫",
-                        "You're a rare and precious gem! 💖",
-                        "Your magic touches every heart! ✨",
-                        "You make life truly magical! 🌟"
-                    ]
-                }
-            },
-            flowers: ['🌸', '🌺', '🌷', '🌹', '🌻', '🌼', '🌿', '🍀'],
-            levels: [
-                { name: 'Seed 🌱', threshold: 0 },
-                { name: 'Sprout 🌿', threshold: 5 },
-                { name: 'Blooming 🌺', threshold: 10 },
-                { name: 'Garden Keeper 🌸', threshold: 15 },
-                { name: 'Love Guardian 💖', threshold: 20 },
-                { name: 'Magic Spirit ✨', threshold: 25 },
-                { name: 'Garden Angel 👼', threshold: 30 },
-                { name: 'Flower Queen 👑', threshold: 35 }
-            ]
+        const canvas = document.getElementById('galaxyCanvas');
+        const ctx = canvas.getContext('2d');
+        const lovePointsEl = document.getElementById('lovePoints');
+        const streakEl = document.getElementById('streak');
+        const bestStreakEl = document.getElementById('bestStreak');
+        const missesEl = document.getElementById('misses');
+        const loveLog = document.getElementById('loveLog');
+        const startOverlay = document.getElementById('startOverlay');
+        const startButton = document.getElementById('startButton');
+        const toast = document.getElementById('toast');
+
+        let width = 0;
+        let height = 0;
+        let animationId;
+        let playing = false;
+
+        const player = {
+            x: 0,
+            y: 0,
+            radius: 28,
+            color: '#ff9ad6',
+            trail: []
         };
 
-        // Game State
-        let gameState = {
-            selectedSeed: null,
-            flowerCount: 0,
-            joyPoints: 0,
-            loveScore: 0,
-            level: 'Seed 🌱'
+        const floatingWords = ['shine', 'radiant', 'amour', 'destiny', 'infinite', 'glow', 'dream'];
+
+        const stars = [];
+        const memories = [];
+        const sparkles = [];
+
+        let lovePoints = 0;
+        let streak = 0;
+        let bestStreak = 0;
+        let misses = 0;
+        let lastSpawn = 0;
+        let lastMemorySpawn = 0;
+
+        const milestones = [10, 20, 35, 50, 75, 100];
+        const milestoneMessages = {
+            10: 'Ten stars for ten thousand smiles you give me.',
+            20: 'Your love pulls me closer like gravity—thank you for being my constant.',
+            35: 'Every streak we keep is another promise that our light never fades.',
+            50: 'Fifty little reminders that you are my favorite universe to explore.',
+            75: 'You + me, streaking past constellations like the unstoppable duo we are.',
+            100: 'A hundred sparks, a hundred reasons: I am forever in love with you, Mukami.'
         };
 
-        // Gallery Controls
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.gallery-slide');
-        const dots = document.querySelectorAll('.gallery-dot');
-        let galleryInterval;
+        const compliments = [
+            'You are the lyric to every love song that plays in my head.',
+            'Your voice feels like starlight pouring gently into my heart.',
+            'I could chart constellations with the moments you make me laugh.',
+            'If kisses were comets, I would fill your sky with them every night.',
+            'You turn the ordinary into auroras just by being near.',
+            'Your dreams are galaxies I vow to protect and cherish.'
+        ];
 
-        // Gallery Functions
-        function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
         }
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-            resetGalleryInterval();
-        }
-//
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-            resetGalleryInterval();
-        }
-
-        function resetGalleryInterval() {
-            clearInterval(galleryInterval);
-            galleryInterval = setInterval(nextSlide, 4000);
-        }
-
-        // Initialize gallery
-        function initializeGallery() {
-            showSlide(0);
-            galleryInterval = setInterval(nextSlide, 4000);
-
-            document.querySelector('.gallery-container').addEventListener('mouseenter', () => {
-                clearInterval(galleryInterval);
-            });
-
-            document.querySelector('.gallery-container').addEventListener('mouseleave', () => {
-                resetGalleryInterval();
-            });
-
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    currentSlide = index;
-                    showSlide(currentSlide);
-                    resetGalleryInterval();
-                });
+        function spawnStar() {
+            const speed = Math.random() * 1.5 + 1.2 + streak * 0.02;
+            stars.push({
+                x: Math.random() * width,
+                y: -20,
+                radius: Math.random() * 12 + 8,
+                speed,
+                color: `hsla(${Math.random() * 40 + 300}, 100%, 70%, 0.9)`
             });
         }
 
-        // Game Functions
-        function showMessage(text, duration = 3000) {
-            const existingMessage = document.querySelector('.message-popup');
-            if (existingMessage) {
-                existingMessage.remove();
-            }
-
-            const message = document.createElement('div');
-            message.className = 'message-popup';
-            message.textContent = text;
-            document.body.appendChild(message);
-
-            setTimeout(() => {
-                message.style.opacity = '0';
-                setTimeout(() => message.remove(), 300);
-            }, duration);
-        }
-
-        function updateScoreboard() {
-            const scoreboard = document.getElementById('scoreboard');
-            const scores = JSON.parse(localStorage.getItem('gardenScores') || '[]');
-            
-            // Sort scores by points and date
-            scores.sort((a, b) => {
-                if (b.score !== a.score) return b.score - a.score;
-                return new Date(b.timestamp) - new Date(a.timestamp);
+        function spawnMemory() {
+            memories.push({
+                x: Math.random() * width,
+                y: -20,
+                radius: 16,
+                speed: Math.random() * 1 + 0.9,
+                pulse: 0
             });
-
-            scoreboard.innerHTML = scores.slice(0, 5).map((score, index) => `
-                <div class="score-item">
-                    <div class="score-info">
-                        <span class="score-name">${index + 1}. ${score.name}</span>
-                        <span class="score-details">Level: ${score.level} | Flowers: ${score.flowers}</span>
-                    </div>
-                    <span class="score-points">${score.score} pts</span>
-                </div>
-            `).join('');
         }
 
-        function saveProgress() {
-            const progress = {
-                state: gameState,
-                playerName: document.getElementById('playerName').value,
-                timestamp: new Date().toISOString()
-            };
-            
-            localStorage.setItem('gardenProgress', JSON.stringify(progress));
-            
-            // Save to high scores
-            const scores = JSON.parse(localStorage.getItem('gardenScores') || '[]');
-            const newScore = {
-                name: progress.playerName,
-                score: gameState.joyPoints + gameState.loveScore,
-                flowers: gameState.flowerCount,
-                level: gameState.level,
-                timestamp: progress.timestamp
-            };
-            
-            scores.push(newScore);
-            // Keep only top 20 scores
-            scores.sort((a, b) => b.score - a.score);
-            localStorage.setItem('gardenScores', JSON.stringify(scores.slice(0, 20)));
-            
-            updateScoreboard();
-        }
-
-        function updateStats() {
-            document.getElementById('flowerCount').textContent = `${gameState.flowerCount} 🌺`;
-            document.getElementById('joyPoints').textContent = `${gameState.joyPoints} ✨`;
-            document.getElementById('loveScore').textContent = `${gameState.loveScore} 💝`;
-            
-            const newLevel = GAME_CONFIG.levels.reduce((acc, level) => 
-                gameState.flowerCount >= level.threshold ? level : acc
-            );
-            
-            if (newLevel.name !== gameState.level) {
-                gameState.level = newLevel.name;
-                document.getElementById('gardenLevel').textContent = newLevel.name;
-                showMessage(`🎉 Amazing! You've reached ${newLevel.name}! 🎉`);
-                
-                if (newLevel.name === 'Garden Keeper 🌸') {
-                    const magicSeed = createSeedButton('magic');
-                    document.getElementById('seedInventory').appendChild(magicSeed);
-                    setTimeout(() => {
-                        showMessage("✨ Magic Seed Unlocked! Spread your magical energy!");
-                    }, 1500);
-                }
-            }
-        }
-
-        function createSeedButton(type) {
-            const button = document.createElement('button');
-            button.className = 'seed-btn';
-            button.textContent = GAME_CONFIG.seeds[type].name;
-            button.onclick = () => selectSeed(type);
-            return button;
-        }
-
-        function selectSeed(type) {
-            gameState.selectedSeed = type;
-            document.querySelectorAll('.seed-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent === GAME_CONFIG.seeds[type].name) {
-                    btn.classList.add('active');
-                }
-            });
-            showMessage(`Selected ${GAME_CONFIG.seeds[type].name} 🌱`);
-        }
-
-        function createButterfly() {
-            const butterfly = document.createElement('div');
-            butterfly.className = 'butterfly';
-            butterfly.textContent = '🦋';
-            butterfly.style.left = Math.random() * 100 + 'vw';
-            butterfly.style.top = Math.random() * 100 + 'vh';
-            document.body.appendChild(butterfly);
-            
-            butterfly.addEventListener('animationend', () => butterfly.remove());
-        }
-
-        function plantFlower(plot) {
-            if (!gameState.selectedSeed) {
-                showMessage("Choose a seed to plant! 🌱");
-                return;
-            }
-            
-            if (plot.hasChildNodes()) {
-                showMessage("This spot already has a flower! 🌸");
-                return;
-            }
-
-            plot.classList.add('growing');
-            
-            setTimeout(() => {
-                const flower = document.createElement('div');
-                flower.className = 'flower';
-                flower.textContent = GAME_CONFIG.flowers[Math.floor(Math.random() * GAME_CONFIG.flowers.length)];
-                
-                plot.innerHTML = '';
-                plot.appendChild(flower);
-                plot.classList.remove('growing');
-
-                // Update game state
-                gameState.flowerCount++;
-                gameState.joyPoints += 15;
-                gameState.loveScore += 10;
-                
-                // Show random message
-                const messages = GAME_CONFIG.seeds[gameState.selectedSeed].messages;
-                showMessage(messages[Math.floor(Math.random() * messages.length)]);
-                
-                updateStats();
-
-                // Special effects
-                if (Math.random() < 0.4) {
-                    createButterfly();
-                }
-
-                // Add sparkles
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.textContent = '✨';
-                plot.appendChild(sparkle);
-
-                saveProgress();
-            }, 1500);
-        }
-
-        function initializeGarden() {
-            const garden = document.getElementById('garden');
-            garden.innerHTML = '';
-            
+        function createSparkle(x, y, color) {
             for (let i = 0; i < 12; i++) {
-                const plot = document.createElement('div');
-                plot.className = 'garden-plot';
-                plot.onclick = () => plantFlower(plot);
-                garden.appendChild(plot);
+                sparkles.push({
+                    x,
+                    y,
+                    angle: (Math.PI * 2 * i) / 12,
+                    speed: Math.random() * 1.8 + 1,
+                    life: 1,
+                    color
+                });
             }
         }
 
-        function initializeSeeds() {
-            const inventory = document.getElementById('seedInventory');
-            inventory.innerHTML = '';
-            
-            ['love', 'joy', 'dream'].forEach(type => {
-                inventory.appendChild(createSeedButton(type));
+        function drawHeart(x, y, radius, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(radius / 16, radius / 16);
+            ctx.beginPath();
+            ctx.moveTo(0, -8);
+            ctx.bezierCurveTo(12, -20, 32, 0, 0, 24);
+            ctx.bezierCurveTo(-32, 0, -12, -20, 0, -8);
+            ctx.closePath();
+            const gradient = ctx.createRadialGradient(0, -8, 4, 0, 0, 24);
+            gradient.addColorStop(0, '#fff');
+            gradient.addColorStop(1, color);
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 18;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawStar({ x, y, radius, color }) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate((Date.now() / 400) % (Math.PI * 2));
+            ctx.beginPath();
+            for (let i = 0; i < 5; i++) {
+                ctx.lineTo(Math.cos((18 + i * 72) * Math.PI / 180) * radius, Math.sin((18 + i * 72) * Math.PI / 180) * radius);
+                ctx.lineTo(Math.cos((54 + i * 72) * Math.PI / 180) * radius * 0.55, Math.sin((54 + i * 72) * Math.PI / 180) * radius * 0.55);
+            }
+            ctx.closePath();
+            const gradient = ctx.createRadialGradient(0, 0, radius * 0.2, 0, 0, radius);
+            gradient.addColorStop(0, '#fff');
+            gradient.addColorStop(1, color);
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 20;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawMemory({ x, y, radius, pulse }) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(Math.sin(pulse) * 0.3);
+            ctx.beginPath();
+            ctx.moveTo(0, -radius);
+            for (let i = 1; i < 6; i++) {
+                const angle = (Math.PI * 2 * i) / 6;
+                const r = radius + Math.sin(pulse + i) * 3;
+                ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
+            }
+            ctx.closePath();
+            const gradient = ctx.createRadialGradient(0, 0, 6, 0, 0, radius * 1.2);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+            gradient.addColorStop(1, 'rgba(106, 90, 205, 0.8)');
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = '#8b7bff';
+            ctx.shadowBlur = 18;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function updatePlayerPosition(x, y) {
+            player.x = x;
+            player.y = y;
+            player.trail.push({ x, y, life: 1 });
+            if (player.trail.length > 20) player.trail.shift();
+        }
+
+        function updateSparkles() {
+            for (let i = sparkles.length - 1; i >= 0; i--) {
+                const sparkle = sparkles[i];
+                sparkle.x += Math.cos(sparkle.angle) * sparkle.speed;
+                sparkle.y += Math.sin(sparkle.angle) * sparkle.speed;
+                sparkle.life -= 0.02;
+                if (sparkle.life <= 0) {
+                    sparkles.splice(i, 1);
+                }
+            }
+        }
+
+        function render() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw player trail
+            player.trail.forEach((point, index) => {
+                const opacity = point.life;
+                ctx.globalAlpha = opacity * 0.4;
+                drawHeart(point.x, point.y, player.radius * (index / player.trail.length), '#ffccf0');
+                ctx.globalAlpha = 1;
+                point.life -= 0.025;
+            });
+
+            // Draw hearts (player)
+            drawHeart(player.x, player.y, player.radius, player.color);
+
+            // Draw falling stars
+            stars.forEach(drawStar);
+
+            // Draw memories
+            memories.forEach(drawMemory);
+
+            // Draw sparkles
+            sparkles.forEach(sparkle => {
+                ctx.save();
+                ctx.globalAlpha = Math.max(sparkle.life, 0);
+                ctx.fillStyle = sparkle.color;
+                ctx.beginPath();
+                ctx.arc(sparkle.x, sparkle.y, 4 * sparkle.life, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
             });
         }
 
-        function beginGame() {
-            const playerName = document.getElementById('playerName').value.trim();
-            if (!playerName) {
-                showMessage("Please enter your name to start! 💝");
-                document.getElementById('playerName').focus();
-                return;
+        function update(delta) {
+            const spawnInterval = Math.max(600 - streak * 4, 220);
+            const now = performance.now();
+
+            if (now - lastSpawn > spawnInterval) {
+                spawnStar();
+                lastSpawn = now;
             }
 
-            const progressBar = document.getElementById('loadingProgress');
-            let progress = 0;
-            
-            const loadingInterval = setInterval(() => {
-                progress += 5;
-                progressBar.style.width = `${progress}%`;
-                
-                if (progress >= 100) {
-                    clearInterval(loadingInterval);
-                    startGame(playerName);
-                }
-            }, 50);
-        }
-
-        function startGame(playerName) {
-            document.getElementById('welcomeModal').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('welcomeModal').style.display = 'none';
-                document.querySelector('.game-container').style.display = 'block';
-                initializeGarden();
-                initializeSeeds();
-                
-                // Try to load previous progress
-                const saved = localStorage.getItem('gardenProgress');
-                if (saved) {
-                    const { state } = JSON.parse(saved);
-                    gameState = state;
-                    updateStats();
-                }
-
-                updateScoreboard();
-                showMessage(`Welcome to your magical garden, ${playerName}! 💖`);
-            }, 500);
-        }
-
-        function restartGame() {
-            if (confirm('Start a new garden? Your current progress will be saved! 🌸')) {
-                saveProgress();
-                
-                gameState = {
-                    selectedSeed: null,
-                    flowerCount: 0,
-                    joyPoints: 0,
-                    loveScore: 0,
-                    level: 'Seed 🌱'
-                };
-                
-                initializeGarden();
-                initializeSeeds();
-                updateStats();
-                updateScoreboard();
-                showMessage("Starting a new magical garden! 🌱");
+            if (now - lastMemorySpawn > 6000) {
+                spawnMemory();
+                lastMemorySpawn = now;
             }
-        }
 
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeGallery();
-            updateScoreboard();
-            
-            // Handle name input enter key
-            document.getElementById('playerName').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    beginGame();
+            stars.forEach((star, index) => {
+                star.y += star.speed;
+                if (star.y - star.radius > height) {
+                    stars.splice(index, 1);
+                    streak = 0;
+                    misses++;
+                    updateHUD();
+                    createToast('A star slipped away, but my love never will.');
+                }
+                const dist = Math.hypot(player.x - star.x, player.y - star.y);
+                if (dist < player.radius + star.radius * 0.6) {
+                    stars.splice(index, 1);
+                    lovePoints += 3 + Math.floor(streak / 5);
+                    streak++;
+                    bestStreak = Math.max(bestStreak, streak);
+                    createSparkle(star.x, star.y, star.color);
+                    createFloatingWord(star.x, star.y);
+                    updateHUD();
+                    checkMilestone();
                 }
             });
+
+            memories.forEach((memory, index) => {
+                memory.y += memory.speed;
+                memory.pulse += delta * 0.005;
+                if (memory.y - memory.radius > height) {
+                    memories.splice(index, 1);
+                }
+                const dist = Math.hypot(player.x - memory.x, player.y - memory.y);
+                if (dist < player.radius + memory.radius * 0.8) {
+                    memories.splice(index, 1);
+                    lovePoints += 10;
+                    streak += 3;
+                    bestStreak = Math.max(bestStreak, streak);
+                    createSparkle(memory.x, memory.y, '#9d8bff');
+                    updateHUD();
+                    createToast(randomItem(compliments));
+                }
+            });
+
+            updateSparkles();
+        }
+
+        function gameLoop(timestamp) {
+            if (!playing) return;
+            if (!gameLoop.lastTime) gameLoop.lastTime = timestamp;
+            const delta = timestamp - gameLoop.lastTime;
+            gameLoop.lastTime = timestamp;
+
+            update(delta);
+            render();
+
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function updateHUD() {
+            lovePointsEl.textContent = lovePoints;
+            streakEl.textContent = streak;
+            bestStreakEl.textContent = bestStreak;
+            missesEl.textContent = misses;
+        }
+
+        function createToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3200);
+            addToLog(message);
+        }
+
+        function addToLog(message) {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            entry.innerHTML = `<strong>${time}</strong> — ${message}`;
+            loveLog.prepend(entry);
+            while (loveLog.children.length > 10) {
+                loveLog.removeChild(loveLog.lastChild);
+            }
+        }
+
+        function checkMilestone() {
+            milestones.forEach(milestone => {
+                if (lovePoints >= milestone && !checkMilestone[`reached_${milestone}`]) {
+                    checkMilestone[`reached_${milestone}`] = true;
+                    createToast(milestoneMessages[milestone]);
+                }
+            });
+        }
+
+        function createFloatingWord(x, y) {
+            const word = document.createElement('span');
+            word.className = 'floating-word';
+            word.textContent = randomItem(floatingWords);
+            word.style.left = `${x}px`;
+            word.style.top = `${y}px`;
+            document.body.appendChild(word);
+            setTimeout(() => word.remove(), 2800);
+        }
+
+        function randomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function resetGame() {
+            lovePoints = 0;
+            streak = 0;
+            bestStreak = 0;
+            misses = 0;
+            stars.length = 0;
+            memories.length = 0;
+            sparkles.length = 0;
+            player.trail.length = 0;
+            Object.keys(checkMilestone).forEach(key => { if (key.startsWith('reached_')) delete checkMilestone[key]; });
+            loveLog.innerHTML = '';
+            addToLog('Mission initiated. Let us chase the stars together.');
+            updateHUD();
+        }
+
+        function startGame() {
+            resetGame();
+            playing = true;
+            startOverlay.style.pointerEvents = 'none';
+            startOverlay.style.opacity = '0';
+            setTimeout(() => startOverlay.style.display = 'none', 700);
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function stopGame() {
+            playing = false;
+            cancelAnimationFrame(animationId);
+        }
+
+        resizeCanvas();
+        updatePlayerPosition(window.innerWidth / 2, window.innerHeight / 2);
+
+        window.addEventListener('resize', resizeCanvas);
+
+        window.addEventListener('mousemove', (event) => {
+            updatePlayerPosition(event.clientX, event.clientY);
         });
+
+        window.addEventListener('touchmove', (event) => {
+            const touch = event.touches[0];
+            updatePlayerPosition(touch.clientX, touch.clientY);
+        }, { passive: true });
+
+        startButton.addEventListener('click', () => {
+            if (!playing) startGame();
+        });
+
+        addToLog('Waiting for Mukami to launch the love mission. 💞');
     </script>
 </body>
 </html>
