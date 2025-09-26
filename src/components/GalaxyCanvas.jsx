@@ -28,10 +28,20 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
   const destroyedCountRef = useRef(0);
   const beaconVisibleRef = useRef(false);
   const reunitedRef = useRef(false);
+  const meteorDestroyedRef = useRef(onMeteorDestroyed);
+  const reunitedCallbackRef = useRef(onReunited);
 
   useEffect(() => {
     reunitedRef.current = reunited;
   }, [reunited]);
+
+  useEffect(() => {
+    meteorDestroyedRef.current = onMeteorDestroyed;
+  }, [onMeteorDestroyed]);
+
+  useEffect(() => {
+    reunitedCallbackRef.current = onReunited;
+  }, [onReunited]);
 
 
   useEffect(() => {
@@ -359,7 +369,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
             laser.life = 999;
             destroyedCountRef.current += 1;
             const message = METEOR_MESSAGES[Math.floor(Math.random() * METEOR_MESSAGES.length)];
-            onMeteorDestroyed?.(message);
+            meteorDestroyedRef.current?.(message);
 
             for (let i = 0; i < 16; i += 1) {
               const life = random(25, 45);
@@ -409,7 +419,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
           reunitedRef.current = true;
           firingRef.current = false;
           lasersRef.current = [];
-          onReunited?.();
+          reunitedCallbackRef.current?.();
         }
       }
 
@@ -483,7 +493,7 @@ export default function GalaxyCanvas({ onMeteorDestroyed, onReunited, reunited }
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [onMeteorDestroyed, onReunited]);
+  }, []);
 
 
   return (
