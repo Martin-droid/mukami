@@ -2,7 +2,9 @@
   position: relative;
   width: 100%;
   max-width: 1080px;
-  aspect-ratio: 16 / 9;
+  height: min(68vh, 620px);
+  min-height: 380px;
+
   margin: 0 auto 2.5rem;
   border-radius: 32px;
   overflow: hidden;
@@ -34,12 +36,26 @@
 
 @media (max-width: 768px) {
   .galaxy-canvas-wrapper {
-    aspect-ratio: 4 / 5;
+    height: min(72vh, 520px);
+    min-height: 320px;
+
     border-radius: 24px;
   }
 
   .canvas-overlay {
     width: calc(100% - 3rem);
     font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .galaxy-canvas-wrapper {
+    min-height: 280px;
+    border-radius: 20px;
+  }
+
+  .canvas-overlay {
+    bottom: 12px;
+    padding: 0.55rem 0.85rem;
   }
 }

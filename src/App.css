@@ -75,6 +75,8 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
   width: min(960px, 100%);
+  margin: 0 auto 3rem;
+
 }
 
 .score-card > div {
@@ -83,6 +85,9 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: linear-gradient(145deg, rgba(36, 22, 81, 0.82) 0%, rgba(19, 11, 46, 0.9) 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: grid;
+  gap: 0.6rem;
+
 }
 
 .score-label {
@@ -98,6 +103,82 @@
   font-weight: 600;
   color: #fff;
 }
+
+.score-blurb {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: rgba(214, 216, 255, 0.75);
+}
+
+.promise-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(238, 240, 255, 0.92);
+}
+
+.promise-stack span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(106, 89, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(30, 16, 65, 0.35);
+}
+
+.journey-tips {
+  display: grid;
+  gap: 1.5rem;
+  width: min(960px, 100%);
+  margin: 4rem auto 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.journey-tips article {
+  padding: 1.8rem;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: linear-gradient(160deg, rgba(52, 32, 102, 0.85) 0%, rgba(16, 10, 36, 0.92) 100%);
+  box-shadow: 0 30px 70px rgba(42, 20, 82, 0.35);
+  display: grid;
+  gap: 1rem;
+}
+
+.journey-tips h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.8rem, 2.2vw, 2.3rem);
+  color: #ffffff;
+}
+
+.journey-tips ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.75rem;
+  color: rgba(220, 224, 255, 0.8);
+  line-height: 1.6;
+}
+
+.journey-tips li::marker {
+  color: rgba(255, 149, 214, 0.9);
+}
+
+.journey-tips p {
+  margin: 0;
+  color: rgba(220, 224, 255, 0.82);
+  line-height: 1.7;
+}
+
 
 .orbital-ring {
   position: relative;
@@ -236,6 +317,32 @@
   font-size: 0.9rem;
 }
 
+.love-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  padding: 1.1rem 1.8rem;
+  border-radius: 999px;
+  background: linear-gradient(120deg, rgba(255, 138, 198, 0.92) 0%, rgba(124, 96, 255, 0.92) 100%);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 25px 70px rgba(76, 38, 120, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.love-banner h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+}
+
+.love-banner p {
+  margin: 0.35rem 0 0;
+  font-size: 1rem;
+}
+
+
 @media (max-width: 768px) {
   .app-shell {
     padding: 1.8rem 1.1rem 3rem;
@@ -248,6 +355,29 @@
   .mission-grid article {
     padding: 1.4rem;
   }
+
+  .journey-tips {
+    margin: 3rem auto 2rem;
+  }
+
+  .journey-tips article {
+    padding: 1.4rem;
+  }
+
+  .love-toast {
+    top: 16px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2.4rem);
+  }
+
+  .love-banner {
+    width: calc(100% - 2.2rem);
+    bottom: 20px;
+    padding: 1rem 1.2rem;
+  }
+
 }
 
 @keyframes orbit {
@@ -268,3 +398,16 @@
     transform: translateY(-8px);
   }
 }
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 25px 70px rgba(76, 38, 120, 0.45);
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    box-shadow: 0 35px 90px rgba(255, 128, 188, 0.55);
+    transform: translateX(-50%) scale(1.03);
+  }
+}
+

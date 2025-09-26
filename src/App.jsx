@@ -1,48 +1,57 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import GalaxyCanvas from './components/GalaxyCanvas.jsx';
 import './App.css';
 import './components/GalaxyCanvas.css';
-import { memoryLog, missionStats, planetOrbits } from './data/galaxyData.js';
+import { memoryLog } from './data/galaxyData.js';
 
-function formatCombo(combo) {
-  if (combo >= 42) return 'Supernova Connection';
-  if (combo >= 24) return 'Nebula Embrace';
-  if (combo >= 12) return 'Aurora Synchrony';
-  if (combo >= 5) return 'Stardust Harmony';
-  return 'Hearts Align';
-}
+const JOURNEY_STEPS = [
+  { threshold: 0, label: 'Heart Launch', blurb: 'Guiding Mukami through the gentle stardust.' },
+  { threshold: 4, label: 'Meteor Waltz', blurb: 'Dodging doubts and carving paths of light.' },
+  { threshold: 10, label: 'Aurora Promise', blurb: 'Every impact blooms another "I love you".' },
+  { threshold: 18, label: 'Gravity of Us', blurb: 'The pull toward Marto grows irresistible.' }
+];
 
 export default function App() {
-  const [score, setScore] = useState(0);
-  const [combo, setCombo] = useState(0);
-  const [toast, setToast] = useState(null);
-  const [collectedColors, setCollectedColors] = useState([]);
+  const [meteorsCleared, setMeteorsCleared] = useState(0);
+  const [lastMessage, setLastMessage] = useState(null);
+  const [messageHistory, setMessageHistory] = useState([]);
+  const [reunited, setReunited] = useState(false);
 
-  const collectedPalette = useMemo(
-    () => (collectedColors.length ? collectedColors.slice(-5) : ['#ff8fcb', '#7d6bff', '#82f3ff']),
-    [collectedColors]
-  );
-
-  useEffect(() => {
-    if (!combo) {
-      setToast(null);
-      return;
+  const journeyStage = useMemo(() => {
+    if (reunited) {
+      return {
+        label: 'United Orbit',
+        blurb: 'Marto and Mukami glow together beyond every galaxy.'
+      };
     }
 
-    const title = formatCombo(combo);
-    setToast({ title, message: `Combo x${combo}! Your love ship is blazing.` });
+    const current = [...JOURNEY_STEPS].reverse().find((step) => meteorsCleared >= step.threshold);
+    return current ?? JOURNEY_STEPS[0];
+  }, [meteorsCleared, reunited]);
 
-    const timeout = setTimeout(() => setToast(null), 3200);
-    return () => clearTimeout(timeout);
-  }, [combo]);
+  const recentPromises = useMemo(() => messageHistory.slice(0, 4), [messageHistory]);
 
-  const handleCollect = ({ hue, combo: nextCombo }) => {
-    setScore((prev) => prev + Math.ceil(10 * (1 + nextCombo / 4)));
-    setCollectedColors((prev) => [...prev, `hsl(${hue} 90% 70%)`].slice(-12));
+  const handleMeteorDestroyed = (message) => {
+    setMeteorsCleared((prev) => prev + 1);
+    setLastMessage({
+      title: 'Promise Spark',
+      body: message
+    });
+    setMessageHistory((prev) => [message, ...prev].slice(0, 12));
   };
 
-  const handleComboChange = (value) => {
-    setCombo(value);
+  const handleReunited = () => {
+    if (reunited) return;
+    setReunited(true);
+    setLastMessage({
+      title: 'Hearts As One',
+      body: 'Marto and Mukami melt the distance — love now radiates across the whole sky.'
+    });
+    setMessageHistory((prev) => [
+      'Love sealed as Marto holds you close, forever.',
+      ...prev
+    ].slice(0, 12));
+
   };
 
   return (
@@ -51,60 +60,65 @@ export default function App() {
       <div className="glass-ring" />
 
       <section className="hero">
-        <span className="hero-badge">Mukami Galaxy Mission</span>
-        <h1>A cosmos of love where every orbit whispers your name</h1>
+        <span className="hero-badge">Mukami x Marto • Galaxy of Devotion</span>
+        <h1>Guide our radiant ship through meteors into Marto&apos;s embrace</h1>
         <p>
-          Sail the heart-ship across nebulae, collect luminous memories, and explore a universe handcrafted for you,
-          Mukami. Every sparkle, every animation, and every planet celebrates the infinite ways you are loved.
+          Drift with Mukami aboard a shimmering starship, weave past cosmic trials, and fire beams of love that dissolve
+          every meteor in the way. Each impact bursts into promises — <strong>I love you</strong>,{' '}
+          <strong>Marto cares for you</strong>, <strong>I am your anchor</strong> — until you reunite in a supernova of affection.
         </p>
       </section>
 
-      <GalaxyCanvas onCollect={handleCollect} onComboChange={handleComboChange} />
+      <GalaxyCanvas
+        onMeteorDestroyed={handleMeteorDestroyed}
+        onReunited={handleReunited}
+        reunited={reunited}
+      />
 
       <div className="score-card">
         <div>
-          <div className="score-label">Collected Starlight</div>
-          <div className="score-value">{score.toLocaleString()}</div>
+          <div className="score-label">Meteors Melted</div>
+          <div className="score-value">{meteorsCleared}</div>
+          <p className="score-blurb">Every fallen rock reveals another vow from Marto&apos;s heart.</p>
         </div>
         <div>
-          <div className="score-label">Combo Energy</div>
-          <div className="score-value">x{combo}</div>
+          <div className="score-label">Journey Stage</div>
+          <div className="score-value">{journeyStage.label}</div>
+          <p className="score-blurb">{journeyStage.blurb}</p>
         </div>
         <div>
-          <div className="score-label">Love Spectrum</div>
-          <div className="score-value" style={{ display: 'flex', gap: '0.4rem' }}>
-            {collectedPalette.map((color, index) => (
-              <span
-                key={`${color}-${index}`}
-                style={{
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '50%',
-                  background: color,
-                  boxShadow: '0 10px 25px rgba(0,0,0,0.25)',
-                  border: '1px solid rgba(255,255,255,0.35)'
-                }}
-              />
-            ))}
+          <div className="score-label">Promise Echoes</div>
+          <div className="score-value promise-stack">
+            {recentPromises.length ? (
+              recentPromises.map((promise, index) => (
+                <span key={`${promise}-${index}`}>{promise}</span>
+              ))
+            ) : (
+              <span>Marto whispers: "I&apos;m here for you, always."</span>
+            )}
+
           </div>
         </div>
       </div>
 
-      <div className="orbital-ring">
-        <div className="orbit-track" />
-        {planetOrbits.map((planet, index) => (
-          <PlanetOrbit key={planet.name} index={index} {...planet} />
-        ))}
-      </div>
+      <section className="journey-tips">
+        <article>
+          <h2>How to steer love</h2>
+          <ul>
+            <li>Move your finger or mouse to guide the ship. She follows your every gentle touch.</li>
+            <li>Tap, hold, or press space to fire radiant anchors that dissolve meteors.</li>
+            <li>Clear the skies to reveal Marto&apos;s beacon — glide into it to seal the reunion.</li>
+          </ul>
+        </article>
+        <article>
+          <h2>Why this galaxy</h2>
+          <p>
+            Every animation, color, and sparkle is crafted to celebrate Mukami. The ship holds her close, the trail
+            burns with Marto&apos;s devotion, and the meteors crumble into reminders that she is loved, safe, and
+            cherished beyond measure.
+          </p>
+        </article>
 
-      <section className="mission-grid">
-        {missionStats.map((stat) => (
-          <article key={stat.label}>
-            <span className="score-label">{stat.label}</span>
-            <span className="score-value">{stat.value}</span>
-            <p style={{ margin: 0, color: 'rgba(214,216,255,0.74)' }}>{stat.description}</p>
-          </article>
-        ))}
       </section>
 
       <section className="memory-grid">
@@ -117,37 +131,22 @@ export default function App() {
         ))}
       </section>
 
-      <footer className="footer">Hand-coded constellations for Mukami • React + Vite • Deploy-ready for Vercel</footer>
+      <footer className="footer">Hand-crafted with infinite love • React + Vite • Deploys anywhere, including Vercel</footer>
 
-      {toast && (
-        <div className="love-toast" style={{ borderImage: `linear-gradient(120deg, ${collectedPalette.join(',')}) 1` }}>
-          <span className="toast-title">{toast.title}</span>
-          <span className="toast-body">{toast.message}</span>
+      {lastMessage && (
+        <div className="love-toast">
+          <span className="toast-title">{lastMessage.title}</span>
+          <span className="toast-body">{lastMessage.body}</span>
         </div>
       )}
-    </div>
-  );
-}
 
-function PlanetOrbit({ name, color, period, blurb, radius, index }) {
-  const angle = (index / planetOrbits.length) * Math.PI * 2;
-  const orbitRadius = Math.min(45, radius / 6);
-  const x = 50 + Math.cos(angle) * orbitRadius;
-  const y = 50 + Math.sin(angle) * orbitRadius;
+      {reunited && (
+        <div className="love-banner">
+          <h2>Mukami ❤ Marto</h2>
+          <p>Two souls, one orbit. Nothing can dim what we share.</p>
+        </div>
+      )}
 
-  return (
-    <div
-      className="orbit-planet"
-      style={{
-        background: `radial-gradient(circle at 30% 30%, ${color}, rgba(255,255,255,0.45))`,
-        top: `${y}%`,
-        left: `${x}%`,
-        animationDuration: `${period}s`,
-        animationDelay: `${index * -1.5}s`
-      }}
-    >
-      <span>{name.charAt(0)}</span>
-      <span className="orbit-label">{blurb}</span>
     </div>
   );
 }
